@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
                 });
             }
 
-            Medico.count({}, (err, conteo) => {
+            Medico.countDocuments({}, (err, conteo) => {
                 
                 res.status(200).json({
                     ok: true,

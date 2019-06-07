@@ -17,9 +17,11 @@ var hospitalRoutes = require('./routes/hospital');
 var medicoRoutes = require('./routes/medico');
 var loginRoutes = require('./routes/login');
 var busquedaRoutes = require('./routes/busqueda');
+var uploadRoutes = require('./routes/upload');
+var imagenesRoutes = require('./routes/imagenes');
 
 // Conexión a la base de datos
-mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) => {
+mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', { useNewUrlParser: true }, (err, res) => {
 
     if( err ) throw err;
 
@@ -27,12 +29,22 @@ mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) =
 
 });
 
+mongoose.set('useCreateIndex', true);
+
+// Server index config
+// var serveIndex = require('serve-index');
+// app.use(express.static(__dirname + '/'))
+// app.use('/uploads', serveIndex(__dirname + '/uploads'));
+
 // Rutas
 app.use('/login', loginRoutes);
 app.use('/usuario', usuarioRoutes);
 app.use('/hospital', hospitalRoutes);
 app.use('/medico', medicoRoutes);
 app.use('/busqueda', busquedaRoutes);
+app.use('/upload', uploadRoutes);
+app.use('/img', imagenesRoutes);
+
 // Última Ruta
 app.use('/', appRoutes);
 
@@ -40,3 +52,4 @@ app.use('/', appRoutes);
 app.listen(3000, () => {
     console.log('Express server puerto 3000: \x1b[32m%s\x1b[0m', 'online');
 });
+
