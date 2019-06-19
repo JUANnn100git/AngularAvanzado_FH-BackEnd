@@ -35,7 +35,7 @@ async function verify(token) {
     return {
         nombre: payload.name,
         email: payload.email,
-        img: payload.pitcure,
+        img: payload.picture,
         google: true
     }
 
@@ -110,14 +110,14 @@ app.post('/google', async(req, res) => {
                 }
 
                 var token = jwt.sign({ usuario: usuarioDB }, SEED, { expiresIn: 14400 }); // 4 horas
-        
+
                 res.status(201).json({
                     ok: true,
                     usuario: usuarioDB,
                     token: token,
                     id: usuarioDB._id
                 });
-        
+
             });
 
         }
